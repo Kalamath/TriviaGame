@@ -1,3 +1,67 @@
-.jumbotron {
-    
+.choice{
+    /* display: inline-block; */
+    /* width : 135px; */
+    /* text-align: center; */
+    border : 1px solid grey;
+    border-radius: 5px;
+    cursor: pointer;
+    padding : 5px;
+}
+.choice:hover{
+    border : 2px solid orangered;
+    font-weight: bold;
+}
+
+#choices {
+    text-align: center;
+    /* width: 480px; */
+    padding: 10px;
+}
+
+header img {
+	width: 250px;
+	height: auto;
+	display: block;
+	margin: 0 auto;
+}
+
+.img-fluid {
+    width: 350px;
+    height: auto;
+    padding: 20px;
+}
+
+.jumbotron {                 
+    padding: 7rem 7rem;
+    /* margin-bottom: 5rem; */
+    /* border-radius: 1rem; */
+}
+
+#show-number {
+    /* text-align: right; */
+}
+
+#start{
+    font-size: 1.5em;
+    font-weight: bolder;
+    margin: 0 auto;
+    /* word-break: break-all; */
+    /* width:100px; */
+    /* height:150px; */
+    border : 2px solid lightgrey;
+    text-align: center;
+    cursor: pointer;
+    /* position: absolute; */
+    /* left:300px; */
+    /* top:50px; */
+    color : lightgrey;
+}
+
+#start:hover{
+    border: 3px solid red;
+    color : black;
+}
+
+#question {
+    text-align: center;
 }

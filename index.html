@@ -2,14 +2,14 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="shortcut icon" type="image/png" href="assets/images/dragonball.png"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="shortcut icon" type="image/png" href="assets/images/dragonball.png" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
   <title>Shenron Trivia</title>
 
   <style>
@@ -27,21 +27,63 @@
 </head>
 
 <body>
-  
+
+  <header>
+    <div class="row">
+      <div class="col-md-12">
+        <img src="assets/images/dblogo.png" class="img-fluid" alt="celebrity">
+      </div>
+    </div>
+  </header>
+
   <br />
 
   <main role="main" class="container">
     <div class="jumbotron">
-      <h1>Shenron Trivia</h1>
+        <div id="start">Let's Begin!</div>
+      <div class="row" id="quiz" style="display: none">
 
-      <div id="show-number"></div>
+        <div class="col-md-6">
+          <h1>Shenron Trivia</h1>
+        </div>
 
-      <hr />
+        <div class="col-md-6">
+          <h1 id="show-number"></h1>
+        </div>
 
-      <p id="question"></p>
-      <p id="choices"></p>
-      <p id="score"></p>
 
+        <h4 id="question"></h4>
+
+        <hr />
+        <div id="choices">
+          <div class="choice" id="A" onclick="userInput('A')"></div>
+          <br/>
+          <div class="choice" id="B" onclick="userInput('B')"></div>
+          <br/>
+          <div class="choice" id="C" onclick="userInput('C')"></div>
+          <br/>
+          <div class="choice" id="D" onclick="userInput('D')"></div>
+
+          <br />
+          <div class="row">
+            <div class="col-md-3">
+              <p class="text-center"><span id="rightWrong"></span></p>
+            </div>
+            <div class="col-md-3">
+              <p class="text-center"><span id="score">0</span></p>
+            </div>
+            <div class="col-md-3">
+              <p class="text-center">Wins: <span id="wins">0</span></p>
+            </div>
+            <div class="col-md-3">
+              <p class="text-center">Losses: <span id="losses">0</span></p>
+            </div>
+          </div>
+
+        </div>
+        <!-- <p id="score"></p> -->
+
+      </div>
     </div>
   </main>
 

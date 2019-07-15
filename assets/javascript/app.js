@@ -1,98 +1,82 @@
-  var questions = [
-    {
-      q: "What item is used to restore a wounded Z fighter to full health?",
-      c: "\n(a) Z-Sword\n\(b) Saiyan Hair\n(c) Capsule Corp Medicine\n(d) Senzu Bean",
-      a: "d"
-    },
-    {
-      q: "What's Goku's wife's name?",
-      c: "\n(a) Cha Chi\n\(b) Cho Cha\n(c) Chi Chi\n(d) Chi Cha",
-      a: "c"
-    },
-    {
-      q: "What planet does Vegeta and Goku come from?",
-      c: "\n(a) Planet Z103\n\(b) Planet Frieza\n(c) Planet Vegeta\n(d) Planet of the Kais",
-      a: "c"
-    },
-    {
-      q: "What technique does Goku use to get from one place to another instantly?",
-      c: "\n(a) The One Second Jump\n\(b) Instant Transmission\n(c) Super Saiyan Wormhole\n(d) Teleportation Zap",
-      a: "b"
-    },
-    {
-      q: "How has Dr. Gero been collecting data on the Z Fighters after all these years?",
-      c: "\n(a) There's a rat among the Z Fighters\n\(b) He had Android 19 observe them from afar\n(c) A mechanical fly has been following the Z Fighters constantly\n(d) He used Baba's crystal ball",
-      a: "c"
-    }
-  ];
-  
-  // We start the game with a score of 0.
-  var score = 0;
-  // Variable to hold the index of current question.
-  var questionIndex = 0;
+// My elements
+var start = document.getElementById("start");
+var choiceA = document.getElementById("A");
+var choiceB = document.getElementById("B");
+var choiceC = document.getElementById("C");
+var choiceD = document.getElementById("D");
+var showRightWrong = document.getElementById("rightWrong");
+// TIMER
 
-  // FUNCTIONS
-  // ==============================================================================
 
-  // Function to render questions.
-  function renderQuestion() {
-    // If there are still more questions, render the next one.
-    if (questionIndex <= (questions.length - 1)) {
-      document.querySelector("#question").innerHTML = questions[questionIndex].q, 
-      document.querySelector("#choices").innerHTML = questions[questionIndex].c;
-    }
-    // If there aren't, render the end game screen.
-    else {
-      document.querySelector("#question").innerHTML = "Game Over!";
-      document.querySelector("#score").innerHTML = "Final Score: " + score + " out of " + questions.length;
-    }
+
+// WINS AND LOSSES
+
+game = {
+  wins: [],
+  losses: []
+}
+
+var wins = 0;
+var losses = 0;
+
+var showWins = document.getElementById("wins");
+var showLosses = document.getElementById("losses");
+
+// GAME STUFF
+var questions = [
+  {
+    q: "What item is used to restore a wounded Z fighter to full health?",
+    choiceA: "Z-Sword",
+    choiceB: "Saiyan Hair",
+    choiceC: "Capsule Corp Medicine",
+    choiceD: "Senzu Bean",
+    a: "D"
+  },
+  {
+    q: "What's Goku's wife's name?",
+    choiceA: "Cha Chi",
+    choiceB: "Cho Cha",
+    choiceC: "Chi Chi",
+    choiceD: "Chi Cha",
+    a: "C"
+  },
+  {
+    q: "What planet does Vegeta and Goku come from?",
+    choiceA: "Planet Z103",
+    choiceB: "Planet Frieza",
+    choiceC: "Planet Vegeta",
+    choiceD: "Planet of the Kais",
+    a: "C"
+  },
+  {
+    q: "What technique does Goku use to get from one place to another instantly?",
+    choiceA: "The One Second Jump",
+    choiceB: "Instant Transmission",
+    choiceC: "Super Saiyan Wormhole",
+    choiceD: "Teleportation Zap",
+    a: "B"
+  },
+  {
+    q: "How has Dr. Gero been collecting data on the Z Fighters after all these years?",
+    choiceA: "There's a rat among the Z Fighters",
+    choiceB: "He had Android 19 observe them from afar",
+    choiceC: "A mechanical fly has been following the Z Fighters constantly",
+    choiceD: "He used Baba's crystal ball",
+    a: "C"
   }
+];
 
-  // Function that updates the score...
-  function updateScore() {
-    document.querySelector("#score").innerHTML = "Score: " + score;
-  }
 
-   // MAIN PROCESS
-    // ==============================================================================
+start.addEventListener("click", startQuiz)
+// Start Quiz
+function startQuiz() {
 
-    // Calling functions to start the game.
-    renderQuestion();
-    updateScore();
 
-    // When the user presses a key, it will run the following function...
-    document.onkeyup = function(event) {
+  start.style.display = "none";
+  run();
+  quiz.style.display = "block";
 
-      // If there are no more questions, stop the function.
-      if (questionIndex === questions.length) {
-        return;
-      }
-
-      // Determine which key was pressed, make it lowercase, and set it to the userInput variable.
-      var userInput = event.key.toLowerCase();
-
-      // Only run this code if "t" or "f" were pressed.
-      if (userInput === "a" || userInput === "b" || userInput === "c" || userInput === "d") {
-
-        // If they guess the correct answer, increase and update score, alert them they got it right.
-        if (userInput === questions[questionIndex].a) {
-          alert("Correct!");
-          score++;
-          updateScore();
-        }
-        // If wrong, alert them they are wrong.
-        else {
-          alert("Wrong!");
-        }
-
-        // Increment the questionIndex variable and call the renderQuestion function.
-        questionIndex++;
-        renderQuestion();
-
-      }
-
-    };
-  
+  // run();
   //  Interval Demonstration
   //  Set our number counter to 30.
   var number = 30;
@@ -102,10 +86,10 @@
   var intervalId;
 
   //  When the stop button gets clicked, run the stop function.
-  $("#stop").on("click", stop);
+  // $("#stop").on("click", stop);
 
   //  When the resume button gets clicked, execute the run function.
-  $("#resume").on("click", run);
+  // $("#resume").on("click", run);
 
   //  The run function sets an interval
   //  that runs the decrement function once a second.
@@ -148,4 +132,79 @@
 
   //  Execute the run function.
   run();
+
+}
+
+// We start the game with a score of 0.
+var score = 0;
+// Variable to hold the index of current question.
+var questionIndex = 0;
+
+// FUNCTIONS
+// ==============================================================================
+
+// Function to render questions.
+function renderQuestion() {
+  // If there are still more questions, render the next one.
+  if (questionIndex <= (questions.length - 1)) {
+    document.querySelector("#question").innerHTML = questions[questionIndex].q,
+    document.querySelector("#A").innerHTML = questions[questionIndex].choiceA;
+    document.querySelector("#B").innerHTML = questions[questionIndex].choiceB;
+    document.querySelector("#C").innerHTML = questions[questionIndex].choiceC;
+    document.querySelector("#D").innerHTML = questions[questionIndex].choiceD;
+  }
+  // If there aren't, render the end game screen.
+  else {
+    document.querySelector("#question").innerHTML = "Game Over!";
+    document.querySelector("#score").innerHTML = "Final Score: " + score + " out of " + questions.length;
+  }
+}
+
+// Function that updates the score...
+function updateScore() {
+  document.querySelector("#score").innerHTML = "Score: " + score;
+}
+
+// MAIN PROCESS
+// ==============================================================================
+
+// Calling functions to start the game.
+renderQuestion();
+updateScore();
+
+// When the user presses a key, it will run the following function...
+function userInput() {
+
+  // If there are no more questions, stop the function.
+  if (questionIndex === questions.length) {
+    return;
+  }
+
+  // Determine which key was pressed, make it lowercase, and set it to the userInput variable.
+  // var userInput = event.key.toLowerCase();
+
+  // Makes sure no other button can be pressed
+  // if (userInput === "a" || userInput === "b" || userInput === "c" || userInput === "d") {
+
+    // If they guess the correct answer, increase and update score, alert them they got it right.
+    if (userInput === questions[questionIndex].a) {
+      showRightWrong.innerHTML = "<span class='text-success'>" + "CORRECT!</span>";
+      // alert("Correct!");
+      score++;
+      updateScore();
+    }
+    // If wrong, alert them they are wrong.
+    else {
+      showRightWrong.innerHTML = "<span class='text-danger'>" + "NOPE!</span>";
+      // alert("Wrong!");
+    }
+
+    // Increment the questionIndex variable and call the renderQuestion function.
+    questionIndex++;
+    renderQuestion();
+
+  // }
+
+};
+
 
