@@ -16,8 +16,14 @@ game = {
 var wins = 0;
 var losses = 0;
 
+function displayWinsLosses() {
+  console.log("Losses: " + losses);
+  console.log("Wins: " + wins);
+}
+
 var showWins = document.getElementById("wins");
 var showLosses = document.getElementById("losses");
+
 var count = 0;
 // GAME STUFF
 // We start the game with a score of 0.
@@ -68,9 +74,6 @@ var questions = [
   }
 ];
 
-
-
-
 // FUNCTIONS
 // ==============================================================================
 
@@ -88,6 +91,10 @@ function renderQuestion() {
   else {
     document.querySelector("#question").innerHTML = "Game Over!";
     document.querySelector("#score").innerHTML = "Final Score: " + score + " out of " + questions.length;
+    $("#show-number").html("<h2>" + "YOU DID IT!" + "</h2>");
+    game.wins++;
+    showWins.innerHTML = game.wins;
+    stop();
   }
 }
 
@@ -118,21 +125,18 @@ function startQuiz() {
   //  the "run" function
   var intervalId;
 
-  //  When the stop button gets clicked, run the stop function.
-  // $("#stop").on("click", stop);
-
-  //  When the resume button gets clicked, execute the run function.
-  // $("#resume").on("click", run);
-
-  //  The run function sets an interval
-  //  that runs the decrement function once a second.
-  //  *****BUG FIX******** 
-  //  Clearing the intervalId prior to setting our new intervalId will not allow multiple instances.
   function run() {
     clearInterval(intervalId);
     intervalId = setInterval(decrement, 1000);
   }
 
+  function stop() {
+
+    //  Clears our intervalId
+    clearInterval(intervalId);
+    //  We just pass the name of the interval
+    //  to the clearInterval function.
+  }
   //  The decrement function.
   function decrement() {
 
@@ -148,20 +152,17 @@ function startQuiz() {
 
       //  ...run the stop function.
       stop();
+      document.querySelector("#question").innerHTML = "Game Over!";
+      document.querySelector("#score").innerHTML = "Final Score: " + score + " out of " + questions.length;
+      // game.losses++;
+      // showLosses.innerHTML = game.losses;
 
       //  Alert the user that time is up.
       $("#show-number").html("<h2>" + "TIME'S UP!" + "</h2>");
     }
+    //  The stop function
   }
 
-  //  The stop function
-  function stop() {
-
-    //  Clears our intervalId
-    //  We just pass the name of the interval
-    //  to the clearInterval function.
-    clearInterval(intervalId);
-  }
 
   //  Execute the run function.
   run();
@@ -171,7 +172,30 @@ function startQuiz() {
 renderQuestion();
 updateScore();
 //  This checks for my answers
-function checkMyAnswers(letter) {
+// function checkMyAnswers(letter) {
+//   if (questionIndex === 0) {
+//     if (letter == questions[questionIndex].a) {
+//       showRightWrong.innerHTML = "<span class='text-success'>" + "CORRECT!</span>";
+//       score++;
+//       updateScore();
+//     } else {
+//       showRightWrong.innerHTML = "<span class='text-danger'>" + "NOPE!</span>";
+//     }
+//   }
+// }
+
+// When the user presses a key, it will run the following function...
+function userInput(letter) {
+  // console.log(letter);
+  // console.log($(this));
+  // If there are no more questions, stop the function.
+  // if (questionIndex === questions.length) {
+  //   return;
+  // }
+  // This checks for my function
+  // checkMyAnswers(letter);
+  // console.log(letter);
+  // console.log(questions[questionIndex].a);
   if (questionIndex === 0) {
     if (letter == questions[questionIndex].a) {
       showRightWrong.innerHTML = "<span class='text-success'>" + "CORRECT!</span>";
@@ -181,65 +205,42 @@ function checkMyAnswers(letter) {
       showRightWrong.innerHTML = "<span class='text-danger'>" + "NOPE!</span>";
     }
   }
-}
-
-// When the user presses a key, it will run the following function...
-function userInput(letter) {
-  // console.log(letter);
-  // console.log($(this));
-  // If there are no more questions, stop the function.
-  if (questionIndex === questions.length) {
-    return;
+  if (questionIndex === 1) {
+    if (letter == questions[questionIndex].a) {
+      showRightWrong.innerHTML = "<span class='text-success'>" + "CORRECT!</span>";
+      score++;
+      updateScore();
+    } else {
+      showRightWrong.innerHTML = "<span class='text-danger'>" + "NOPE!</span>";
+    }
   }
-  // This checks for my function
-  checkMyAnswers(letter);
-  // console.log(letter);
-  // console.log(questions[questionIndex].a);
-  // if (questionIndex === 0) {
-  //   if (letter == questions[questionIndex].a) {
-  //     showRightWrong.innerHTML = "<span class='text-success'>" + "CORRECT!</span>";
-  //     score++;
-  //     updateScore();
-  //   } else {
-  //     showRightWrong.innerHTML = "<span class='text-danger'>" + "NOPE!</span>";
-  //   }
-  // }
-  // if (questionIndex === 1) {
-  //   if (letter == questions[questionIndex].a) {
-  //     showRightWrong.innerHTML = "<span class='text-success'>" + "CORRECT!</span>";
-  //     score++;
-  //     updateScore();
-  //   } else {
-  //     showRightWrong.innerHTML = "<span class='text-danger'>" + "NOPE!</span>";
-  //   }
-  // }
-  // if (questionIndex === 2) {
-  //   if (letter == questions[questionIndex].a) {
-  //     showRightWrong.innerHTML = "<span class='text-success'>" + "CORRECT!</span>";
-  //     score++;
-  //     updateScore();
-  //   } else {
-  //     showRightWrong.innerHTML = "<span class='text-danger'>" + "NOPE!</span>";
-  //   }
-  // }
-  // if (questionIndex === 3) {
-  //   if (letter == questions[questionIndex].a) {
-  //     showRightWrong.innerHTML = "<span class='text-success'>" + "CORRECT!</span>";
-  //     score++;
-  //     updateScore();
-  //   } else {
-  //     showRightWrong.innerHTML = "<span class='text-danger'>" + "NOPE!</span>";
-  //   }
-  // }
-  // if (questionIndex === 4) {
-  //   if (letter == questions[questionIndex].a) {
-  //     showRightWrong.innerHTML = "<span class='text-success'>" + "CORRECT!</span>";
-  //     score++;
-  //     updateScore();
-  //   } else {
-  //     showRightWrong.innerHTML = "<span class='text-danger'>" + "NOPE!</span>";
-  //   }
-  // }
+  if (questionIndex === 2) {
+    if (letter == questions[questionIndex].a) {
+      showRightWrong.innerHTML = "<span class='text-success'>" + "CORRECT!</span>";
+      score++;
+      updateScore();
+    } else {
+      showRightWrong.innerHTML = "<span class='text-danger'>" + "NOPE!</span>";
+    }
+  }
+  if (questionIndex === 3) {
+    if (letter == questions[questionIndex].a) {
+      showRightWrong.innerHTML = "<span class='text-success'>" + "CORRECT!</span>";
+      score++;
+      updateScore();
+    } else {
+      showRightWrong.innerHTML = "<span class='text-danger'>" + "NOPE!</span>";
+    }
+  }
+  if (questionIndex === 4) {
+    if (letter == questions[questionIndex].a) {
+      showRightWrong.innerHTML = "<span class='text-success'>" + "CORRECT!</span>";
+      score++;
+      updateScore();
+    } else {
+      showRightWrong.innerHTML = "<span class='text-danger'>" + "NOPE!</span>";
+    }
+  }
 
   // Determine which key was pressed, make it lowercase, and set it to the userInput variable.
   // var userInput = event.key.toLowerCase();
@@ -247,22 +248,22 @@ function userInput(letter) {
   // Makes sure no other button can be pressed
   // if (userInput === "a" || userInput === "b" || userInput === "c" || userInput === "d") {
 
-    // If they guess the correct answer, increase and update score, alert them they got it right.
-    // if (userInput === questions[questionIndex].a) {
-    //   showRightWrong.innerHTML = "<span class='text-success'>" + "CORRECT!</span>";
-    //   alert("Correct!");
-    //   score++;
-    //   updateScore();
-    // }
-    // // If wrong, alert them they are wrong.
-    // else {
-    //   showRightWrong.innerHTML = "<span class='text-danger'>" + "NOPE!</span>";
-    //   // alert("Wrong!");
-    // }
+  // If they guess the correct answer, increase and update score, alert them they got it right.
+  // if (userInput === questions[questionIndex].a) {
+  //   showRightWrong.innerHTML = "<span class='text-success'>" + "CORRECT!</span>";
+  //   alert("Correct!");
+  //   score++;
+  //   updateScore();
+  // }
+  // // If wrong, alert them they are wrong.
+  // else {
+  //   showRightWrong.innerHTML = "<span class='text-danger'>" + "NOPE!</span>";
+  //   // alert("Wrong!");
+  // }
 
-    // Increment the questionIndex variable and call the renderQuestion function.
-    questionIndex++;
-    renderQuestion();
+  // Increment the questionIndex variable and call the renderQuestion function.
+  questionIndex++;
+  renderQuestion();
 
   // }
 
