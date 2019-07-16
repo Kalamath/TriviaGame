@@ -5,9 +5,6 @@ var choiceB = document.getElementById("B");
 var choiceC = document.getElementById("C");
 var choiceD = document.getElementById("D");
 var showRightWrong = document.getElementById("rightWrong");
-// TIMER
-
-
 
 // WINS AND LOSSES
 
@@ -21,8 +18,13 @@ var losses = 0;
 
 var showWins = document.getElementById("wins");
 var showLosses = document.getElementById("losses");
-
+var count = 0;
 // GAME STUFF
+// We start the game with a score of 0.
+var score = 0;
+// Variable to hold the index of current question.
+var questionIndex = 0;
+
 var questions = [
   {
     q: "What item is used to restore a wounded Z fighter to full health?",
@@ -67,6 +69,36 @@ var questions = [
 ];
 
 
+
+
+// FUNCTIONS
+// ==============================================================================
+
+// Function to render questions.
+function renderQuestion() {
+  // If there are still more questions, render the next one.
+  if (questionIndex <= (questions.length - 1)) {
+    document.querySelector("#question").innerHTML = questions[questionIndex].q,
+    document.querySelector("#A").innerHTML = questions[questionIndex].choiceA;
+    document.querySelector("#B").innerHTML = questions[questionIndex].choiceB;
+    document.querySelector("#C").innerHTML = questions[questionIndex].choiceC;
+    document.querySelector("#D").innerHTML = questions[questionIndex].choiceD;
+  }
+  // If there aren't, render the end game screen.
+  else {
+    document.querySelector("#question").innerHTML = "Game Over!";
+    document.querySelector("#score").innerHTML = "Final Score: " + score + " out of " + questions.length;
+  }
+}
+
+// Function that updates the score...
+function updateScore() {
+  document.querySelector("#score").innerHTML = "Score: " + score;
+}
+
+// MAIN PROCESS
+// ==============================================================================
+
 start.addEventListener("click", startQuiz)
 // Start Quiz
 function startQuiz() {
@@ -78,6 +110,7 @@ function startQuiz() {
 
   // run();
   //  Interval Demonstration
+  // TIMER
   //  Set our number counter to 30.
   var number = 30;
 
@@ -134,51 +167,79 @@ function startQuiz() {
   run();
 
 }
-
-// We start the game with a score of 0.
-var score = 0;
-// Variable to hold the index of current question.
-var questionIndex = 0;
-
-// FUNCTIONS
-// ==============================================================================
-
-// Function to render questions.
-function renderQuestion() {
-  // If there are still more questions, render the next one.
-  if (questionIndex <= (questions.length - 1)) {
-    document.querySelector("#question").innerHTML = questions[questionIndex].q,
-    document.querySelector("#A").innerHTML = questions[questionIndex].choiceA;
-    document.querySelector("#B").innerHTML = questions[questionIndex].choiceB;
-    document.querySelector("#C").innerHTML = questions[questionIndex].choiceC;
-    document.querySelector("#D").innerHTML = questions[questionIndex].choiceD;
-  }
-  // If there aren't, render the end game screen.
-  else {
-    document.querySelector("#question").innerHTML = "Game Over!";
-    document.querySelector("#score").innerHTML = "Final Score: " + score + " out of " + questions.length;
-  }
-}
-
-// Function that updates the score...
-function updateScore() {
-  document.querySelector("#score").innerHTML = "Score: " + score;
-}
-
-// MAIN PROCESS
-// ==============================================================================
-
 // Calling functions to start the game.
 renderQuestion();
 updateScore();
+//  This checks for my answers
+function checkMyAnswers(letter) {
+  if (questionIndex === 0) {
+    if (letter == questions[questionIndex].a) {
+      showRightWrong.innerHTML = "<span class='text-success'>" + "CORRECT!</span>";
+      score++;
+      updateScore();
+    } else {
+      showRightWrong.innerHTML = "<span class='text-danger'>" + "NOPE!</span>";
+    }
+  }
+}
 
 // When the user presses a key, it will run the following function...
-function userInput() {
-
+function userInput(letter) {
+  // console.log(letter);
+  // console.log($(this));
   // If there are no more questions, stop the function.
   if (questionIndex === questions.length) {
     return;
   }
+  // This checks for my function
+  checkMyAnswers(letter);
+  // console.log(letter);
+  // console.log(questions[questionIndex].a);
+  // if (questionIndex === 0) {
+  //   if (letter == questions[questionIndex].a) {
+  //     showRightWrong.innerHTML = "<span class='text-success'>" + "CORRECT!</span>";
+  //     score++;
+  //     updateScore();
+  //   } else {
+  //     showRightWrong.innerHTML = "<span class='text-danger'>" + "NOPE!</span>";
+  //   }
+  // }
+  // if (questionIndex === 1) {
+  //   if (letter == questions[questionIndex].a) {
+  //     showRightWrong.innerHTML = "<span class='text-success'>" + "CORRECT!</span>";
+  //     score++;
+  //     updateScore();
+  //   } else {
+  //     showRightWrong.innerHTML = "<span class='text-danger'>" + "NOPE!</span>";
+  //   }
+  // }
+  // if (questionIndex === 2) {
+  //   if (letter == questions[questionIndex].a) {
+  //     showRightWrong.innerHTML = "<span class='text-success'>" + "CORRECT!</span>";
+  //     score++;
+  //     updateScore();
+  //   } else {
+  //     showRightWrong.innerHTML = "<span class='text-danger'>" + "NOPE!</span>";
+  //   }
+  // }
+  // if (questionIndex === 3) {
+  //   if (letter == questions[questionIndex].a) {
+  //     showRightWrong.innerHTML = "<span class='text-success'>" + "CORRECT!</span>";
+  //     score++;
+  //     updateScore();
+  //   } else {
+  //     showRightWrong.innerHTML = "<span class='text-danger'>" + "NOPE!</span>";
+  //   }
+  // }
+  // if (questionIndex === 4) {
+  //   if (letter == questions[questionIndex].a) {
+  //     showRightWrong.innerHTML = "<span class='text-success'>" + "CORRECT!</span>";
+  //     score++;
+  //     updateScore();
+  //   } else {
+  //     showRightWrong.innerHTML = "<span class='text-danger'>" + "NOPE!</span>";
+  //   }
+  // }
 
   // Determine which key was pressed, make it lowercase, and set it to the userInput variable.
   // var userInput = event.key.toLowerCase();
@@ -187,17 +248,17 @@ function userInput() {
   // if (userInput === "a" || userInput === "b" || userInput === "c" || userInput === "d") {
 
     // If they guess the correct answer, increase and update score, alert them they got it right.
-    if (userInput === questions[questionIndex].a) {
-      showRightWrong.innerHTML = "<span class='text-success'>" + "CORRECT!</span>";
-      // alert("Correct!");
-      score++;
-      updateScore();
-    }
-    // If wrong, alert them they are wrong.
-    else {
-      showRightWrong.innerHTML = "<span class='text-danger'>" + "NOPE!</span>";
-      // alert("Wrong!");
-    }
+    // if (userInput === questions[questionIndex].a) {
+    //   showRightWrong.innerHTML = "<span class='text-success'>" + "CORRECT!</span>";
+    //   alert("Correct!");
+    //   score++;
+    //   updateScore();
+    // }
+    // // If wrong, alert them they are wrong.
+    // else {
+    //   showRightWrong.innerHTML = "<span class='text-danger'>" + "NOPE!</span>";
+    //   // alert("Wrong!");
+    // }
 
     // Increment the questionIndex variable and call the renderQuestion function.
     questionIndex++;
